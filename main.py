@@ -10,7 +10,7 @@ def generate_features(image_paths):
     images = np.zeros(shape=(len(image_paths), 224, 224, 3))
     # 事前学習済みのVGG16モデルをロード
     pretrained_vgg16 = VGG16(weights='imagenet', include_top=True)
-    # ペンティメント層の結果を出力するようモデルを修正
+    # ペナルティメイト層の結果を出力するようモデルを修正
     model = Model(inputs=pretrained_vgg16.input, outputs=pretrained_vgg16.get_layer('fc2').output)
     
     # 各画像を読み込み、前処理を行う
@@ -22,7 +22,7 @@ def generate_features(image_paths):
     # VGG16用に画像を前処理
     inputs = preprocess_input(images)
     
-    # 前処理したデータを入力として処理し, ペンティメント層を出力する
+    # 前処理したデータを入力として処理し, ペナルティメイト層を出力する
     images_features = model.predict(inputs)
     return images_features
 
